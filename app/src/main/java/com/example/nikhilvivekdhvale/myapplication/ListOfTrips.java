@@ -24,10 +24,11 @@ public class ListOfTrips extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_trips);
-        floatingButton = findViewById(R.id.AddTrip);
+        floatingButton = findViewById(R.id.addTrip);
         floatingButton.setOnClickListener(this);
-        tripList = findViewById(R.id.TripList);
+        tripList = findViewById(R.id.tripList);
         tripList.setOnItemClickListener(this);
+
 
     }
 
@@ -44,6 +45,7 @@ public class ListOfTrips extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+
         Intent intent = new Intent(this,AddTripDetails.class);
         startActivity(intent);
 

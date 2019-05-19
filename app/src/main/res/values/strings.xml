@@ -4,8 +4,9 @@
     <string name="title_activity_list_of_trips">ListOfTrips</string>
     <string name="title_activity_add_trip_details">AddTripDetails</string>
     <string name="search_start_address">Search for start address</string>
-    <string name="search_end_address">Search for start address</string>
+    <string name="search_end_address">Search for end address</string>
     <string name="save">Save</string>
     <string name="TripSelected">tripSelected</string>
-
+    <string name="TripIncomplete">Trip Data is incomplete.</string>
+    <string name="OK">Ok</string>
 </resources>

@@ -7,7 +7,7 @@
     tools:context=".ListOfTrips">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/AddTrip"
+        android:id="@+id/addTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -17,7 +17,7 @@
         android:layout_alignParentEnd="true" />
 
     <ListView
-        android:id="@+id/TripList"
+        android:id="@+id/tripList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

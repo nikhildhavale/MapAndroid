@@ -18,14 +18,14 @@
 
         android:orientation="vertical">
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/startAddressSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_start_address"
             />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/endAddressSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,15 +33,7 @@
 
             />
     </LinearLayout>
-    <ListView
-        android:id="@+id/searchSuggestion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linear"
-        android:layout_alignRight="@+id/linear"
-        >
 
-    </ListView>
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
