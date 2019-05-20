@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddTripDetails">
+
 
     <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -23,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_start_address"
+            android:inputType="textCapSentences"
             />
 
         <AutoCompleteTextView
@@ -30,16 +27,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_end_address"
+            android:inputType="textCapSentences"
 
+            />
+<RadioGroup
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RadioButton
+            android:id="@+id/walking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/walking"
+            android:layout_margin="@dimen/fab_margin"
+
+            />
+    <RadioButton
+            android:id="@+id/driving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/driving"
+            android:layout_margin="@dimen/fab_margin"
+
+            />
+</RadioGroup>
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/save"
             />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/save"
-        />
-</RelativeLayout>
+

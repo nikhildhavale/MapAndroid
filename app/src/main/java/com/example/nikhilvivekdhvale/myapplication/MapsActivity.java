@@ -3,14 +3,21 @@ package com.example.nikhilvivekdhvale.myapplication;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
-import com.example.nikhilvivekdhvale.Trip;
+import com.example.nikhilvivekdhvale.model.ModesOfTravel;
+import com.example.nikhilvivekdhvale.model.Trip;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Dot;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.Arrays;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -20,10 +27,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        trip = (Trip) getIntent().getSerializableExtra(getResources().getString(R.string.TripSelected));
     }
 
 
@@ -39,9 +46,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.addMarker(new MarkerOptions().position(trip.getStartTripCoodinates()).title(trip.getStartAddressName()));
+        mMap.addMarker(new MarkerOptions().position(trip.getEndTripCoodinates()).title(trip.getEndAddressName()));
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.add(trip.getStartTripCoodinates());
+        polylineOptions.add(trip.getEndTripCoodinates());
+        if(trip.getModesOfTravel().equalsIgnoreCase(ModesOfTravel.WALKING)){
+            polylineOptions.pattern(Arrays.<PatternItem>asList(new Dot()));
+        }
+        googleMap.addPolyline(polylineOptions);
 
-        mMap.addMarker(new MarkerOptions().position(trip.getStartTripCoodinates()));
-        mMap.addMarker(new MarkerOptions().position(trip.getEndTripCoodinates()));
         LatLngBounds bounds = new LatLngBounds(trip.getStartTripCoodinates(),trip.getEndTripCoodinates());
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
     }

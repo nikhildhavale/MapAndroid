@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.example.nikhilvivekdhvale.Trip;
+import com.example.nikhilvivekdhvale.model.Trip;
 import com.example.nikhilvivekdhvale.listadapter.SuggestionListAdapter;
 import com.example.nikhilvivekdhvale.thread.GetGeoCoderThread;
 

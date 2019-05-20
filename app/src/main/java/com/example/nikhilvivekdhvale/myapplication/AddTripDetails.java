@@ -1,6 +1,7 @@
 package com.example.nikhilvivekdhvale.myapplication;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +16,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
-import com.example.nikhilvivekdhvale.Trip;
+import com.example.nikhilvivekdhvale.model.ModesOfTravel;
+import com.example.nikhilvivekdhvale.model.Trip;
 import com.example.nikhilvivekdhvale.listadapter.SuggestionListAdapter;
 import com.example.nikhilvivekdhvale.listener.ShowSearchSuggestionListener;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,8 +31,9 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
     private ListView suggestionList;
     private Trip trip = new Trip();
     private Button saveButton;
-    private  AlertDialog alertDialog  = null;
-
+    private AlertDialog alertDialog  = null;
+    private RadioButton walkingRadioButton;
+    private RadioButton drivingRadioButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,10 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
         setupAutoCompleteTextView(endTripAddress);
         saveButton = (Button)findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
+        walkingRadioButton = findViewById(R.id.walking);
+        drivingRadioButton = findViewById(R.id.driving);
+        walkingRadioButton.setOnClickListener(this);
+        drivingRadioButton.setOnClickListener(this);
 
     }
     void setupAutoCompleteTextView(AutoCompleteTextView textView){
@@ -51,21 +59,36 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
        SuggestionListAdapter adapter = (SuggestionListAdapter) adapterView.getAdapter();
         Address address =(Address) adapter.getItem(i);
-        LatLng latLng = new LatLng(address.getLatitude(),address.getLatitude());
+        LatLng latLng = new LatLng(address.getLatitude(),address.getLongitude());
         switch (adapter.getAddressTextView().getId()){
             case  R.id.startAddressSearch:
-                trip.setStartTripName(address.getAddressLine(0));
+                trip.setStartAddressName(address.getAddressLine(0));
                 trip.setStartTripCoodinates(latLng);
             case  R.id.endAddressSearch:
-                trip.setEndTripName(address.getAddressLine(0));
+                trip.setEndAddressName(address.getAddressLine(0));
                 trip.setEndTripCoodinates(latLng);
 
         }
-
+        adapter.getAddressTextView().setText(address.getAddressLine(0));
     }
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.saveButton:
+            saveTrip();
+            break;
+            case R.id.walking:
+            trip.setModesOfTravel(ModesOfTravel.WALKING);
+            break;
+            case R.id.driving:
+            trip.setModesOfTravel(ModesOfTravel.DRIVING);
+            break;
+
+        }
+
+    }
+    void saveTrip(){
         if(!trip.isTripDataCompleted()){
 
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -79,6 +102,13 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
             });
             alertDialog = alertBuilder.create();
             alertDialog.show();
+        }
+        else {
+            Intent returnIntent = getIntent();
+            returnIntent.putExtra(getResources().getString(R.string.tripDataSaved),trip);
+            setResult(RESULT_OK,returnIntent);
+            finish();
+
         }
     }
 }

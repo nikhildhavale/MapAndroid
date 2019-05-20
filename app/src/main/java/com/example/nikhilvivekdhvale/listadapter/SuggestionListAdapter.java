@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.nikhilvivekdhvale.myapplication.R;
 
 import java.util.List;
-
+/** This adapter will be used to populate the suggestion list on getting it from Geocoder*/
 public class SuggestionListAdapter extends BaseAdapter implements Filterable {
 
           private  List<Address> list;
@@ -39,7 +39,6 @@ public class SuggestionListAdapter extends BaseAdapter implements Filterable {
     public View getView(int position,  View convertView, ViewGroup parent) {
         Address address = list.get(position);
         TextView title;
-        TextView subTitle;
             if (convertView == null){
                 LayoutInflater inflater = LayoutInflater.from(context);
                 convertView = inflater.inflate(R.layout.suggestion_list_item,parent,false);
@@ -48,9 +47,7 @@ public class SuggestionListAdapter extends BaseAdapter implements Filterable {
 
             }
         title = (TextView)convertView.findViewById(R.id.Title);
-        subTitle = (TextView) convertView.findViewById(R.id.subTitle);
         title.setText(address.getAddressLine(0));
-        subTitle.setText(address.getLocality());
 
         return convertView;
     }
@@ -62,7 +59,7 @@ public class SuggestionListAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public long getItemId(int i) {
-        return list.get(i).hashCode();
+        return i;
     }
 
     @Override
