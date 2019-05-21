@@ -106,7 +106,7 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
         else {
             Intent returnIntent = getIntent();
             returnIntent.putExtra(getResources().getString(R.string.tripDataSaved),trip);
-            setResult(RESULT_OK,returnIntent);
+            setResult(0,returnIntent);
             finish();
 
         }

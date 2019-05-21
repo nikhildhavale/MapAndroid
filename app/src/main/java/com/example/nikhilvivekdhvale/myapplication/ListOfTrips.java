@@ -71,7 +71,7 @@ public class ListOfTrips extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     //    super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if(resultCode == 0){
             if(data != null){
                Trip trip = (Trip) data.getSerializableExtra(getResources().getString(R.string.tripDataSaved));
                 addTripInList(trip);
@@ -85,7 +85,7 @@ public class ListOfTrips extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
 
         Intent intent = new Intent(this,AddTripDetails.class);
-        startActivityForResult(intent,RESULT_OK);
+        startActivityForResult(intent,0);
     }
 
 }
