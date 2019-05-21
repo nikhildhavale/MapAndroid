@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.example.nikhilvivekdhvale.model.ModesOfTravel;
 import com.example.nikhilvivekdhvale.model.Trip;
+import com.example.nikhilvivekdhvale.thread.RouterTask;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,6 +18,13 @@ import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
 import java.util.Arrays;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -31,6 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         trip = (Trip) getIntent().getSerializableExtra(getResources().getString(R.string.TripSelected));
+
     }
 
 
@@ -48,15 +57,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.addMarker(new MarkerOptions().position(trip.getStartTripCoodinates()).title(trip.getStartAddressName()));
         mMap.addMarker(new MarkerOptions().position(trip.getEndTripCoodinates()).title(trip.getEndAddressName()));
-        PolylineOptions polylineOptions = new PolylineOptions();
-        polylineOptions.add(trip.getStartTripCoodinates());
-        polylineOptions.add(trip.getEndTripCoodinates());
-        if(trip.getModesOfTravel().equalsIgnoreCase(ModesOfTravel.WALKING)){
-            polylineOptions.pattern(Arrays.<PatternItem>asList(new Dot()));
-        }
-        googleMap.addPolyline(polylineOptions);
+
+//        PolylineOptions polylineOptions = new PolylineOptions();
+//        polylineOptions.add(trip.getStartTripCoodinates());
+//        polylineOptions.add(trip.getEndTripCoodinates());
+//        if(trip.getModesOfTravel().equalsIgnoreCase(ModesOfTravel.WALKING)){
+//            polylineOptions.pattern(Arrays.<PatternItem>asList(new Dot()));
+//        }
+//        googleMap.addPolyline(polylineOptions);
 
         LatLngBounds bounds = new LatLngBounds(trip.getStartTripCoodinates(),trip.getEndTripCoodinates());
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
+        RouterTask routerTask = new RouterTask(this,trip);
+        routerTask.execute(RouterTask.getDirectionsURL(trip));
     }
 }
