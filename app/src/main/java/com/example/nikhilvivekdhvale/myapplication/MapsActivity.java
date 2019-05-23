@@ -29,16 +29,21 @@ import java.util.Arrays;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    public GoogleMap getmMap() {
+        return mMap;
+    }
+
     private GoogleMap mMap;
     private Trip trip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        trip = (Trip) getIntent().getSerializableExtra(getResources().getString(R.string.TripSelected));
+
         setContentView(R.layout.activity_maps);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        trip = (Trip) getIntent().getSerializableExtra(getResources().getString(R.string.TripSelected));
 
     }
 
@@ -66,9 +71,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        }
 //        googleMap.addPolyline(polylineOptions);
 
-        LatLngBounds bounds = new LatLngBounds(trip.getStartTripCoodinates(),trip.getEndTripCoodinates());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,0));
-        RouterTask routerTask = new RouterTask(this,trip);
+
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                LatLngBounds bounds = new LatLngBounds(trip.getStartTripCoodinates(),trip.getEndTripCoodinates());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,10));
+
+            }
+        });        RouterTask routerTask = new RouterTask(this,trip);
         routerTask.execute(RouterTask.getDirectionsURL(trip));
     }
 }
