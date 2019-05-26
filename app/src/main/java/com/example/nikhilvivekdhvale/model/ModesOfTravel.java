@@ -5,6 +5,6 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.Serializable;
 
 public class ModesOfTravel {
-    public static  String WALKING = "Walking";
-    public static  String DRIVING = "Driving";
+    public static  String WALKING = "walking";
+    public static  String DRIVING = "driving";
 }

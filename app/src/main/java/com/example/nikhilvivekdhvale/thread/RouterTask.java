@@ -68,11 +68,8 @@ public class RouterTask extends AsyncTask<String,Integer, ArrayList<List<HashMap
         String startTrip = "origin="+trip.getStartTripCoodinates().latitude + "," + trip.getStartTripCoodinates().longitude ;
         String endTrip = "destination="+ trip.getEndTripCoodinates().latitude + "," + trip.getEndTripCoodinates().longitude;
         String sensor = "sensor=false";
-        String  mode = "mode=walking";
+        String  mode = "mode=" + trip.getModesOfTravel();
 
-        if(trip.getModesOfTravel().equalsIgnoreCase(ModesOfTravel.DRIVING)){
-            mode = "mode=driving";
-        }
         String key = "key=AIzaSyDlF__bqunVgpc7_WY8v-Y_MnbNAFc8PRc";
         String parameters = startTrip + "&" + endTrip + "&" + sensor + "&" + mode + "&" + key ;
         String output = "json";
