@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
+import com.example.nikhilvivekdhvale.TrackTripDetails;
 import com.example.nikhilvivekdhvale.model.ModesOfTravel;
 import com.example.nikhilvivekdhvale.model.Trip;
 import com.example.nikhilvivekdhvale.listadapter.SuggestionListAdapter;
@@ -31,6 +32,7 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
     private ListView suggestionList;
     private Trip trip = new Trip();
     private Button saveButton;
+    private Button startTracking;
     private AlertDialog alertDialog  = null;
     private RadioButton walkingRadioButton;
     private RadioButton drivingRadioButton;
@@ -44,6 +46,8 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
         setupAutoCompleteTextView(endTripAddress);
         saveButton = (Button)findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
+        startTracking = (Button)findViewById(R.id.tracking);
+        startTracking.setOnClickListener(this);
         walkingRadioButton = findViewById(R.id.walking);
         drivingRadioButton = findViewById(R.id.driving);
         walkingRadioButton.setOnClickListener(this);
@@ -75,6 +79,15 @@ public class AddTripDetails extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.tracking:
+                if (getResources().getString(R.string.start_tracking).equalsIgnoreCase(startTracking.getText().toString())){
+                    startTracking.setText(R.string.stop_tracking);
+                    Intent intent = new Intent(this.getApplication(), TrackTripDetails.class);
+                    getApplication().startService(intent);
+
+                }
+                else {
+                }
             case R.id.saveButton:
             saveTrip();
             break;

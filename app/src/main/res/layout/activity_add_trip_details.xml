@@ -57,6 +57,12 @@
             android:layout_gravity="center"
             android:text="@string/save"
             />
-    </LinearLayout>
+
+    <Button
+        android:id="@+id/tracking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_tracking" />
+</LinearLayout>
 
 
